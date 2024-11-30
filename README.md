@@ -19,7 +19,7 @@ This is a revisit of my [NaNoGenMo 2016](https://github.com/NaNoGenMo/2016/issue
 
 ## Result
 
-[Markdown]() and [PDF]()
+[Markdown](https://github.com/barnoid/AIAI2/blob/main/output/AI_AI_agAIn.md) and [PDF](https://github.com/barnoid/AIAI2/blob/main/output/AI_AI_agAIn.pdf)
 
 The resulting text this time is considerably more coherent and novel-like. Though despite my insistence on not mentioning the image in the prompt, it still insisted on dropping out of novel writing and reverting to image describing occasionally.
 
