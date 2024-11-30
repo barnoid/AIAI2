@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Combines image texts into chapter files, and run scripts to generate various output formats
+
+for k in `seq 0 31`; do
+  kn=`printf '%02d' $k`
+  echo $kn
+  cat ${kn}-*.txt > ${kn}.txt
+  ruby generate-html.rb $kn > ${kn}.html
+done
+
+ruby generate-markdown.rb > AI_AI_agAIn.md
+ruby generate-tex.rb > AI_AI_agAIn.tex

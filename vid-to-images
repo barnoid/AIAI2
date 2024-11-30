@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Takes a video file parameter and extracts the embedded chapter timings
+# then for each chapter saves one still every 8 seconds.
+
+ffprobe -print_format csv -show_chapters $1 | cut -d ',' -f '2,5,7' |
+while IFS=, read c start end
+do
+  chapter=`printf '%02d' $c`
+  ffmpeg -nostdin -ss "$start" -to "$end" -an -i $1 -vf fps=1/8 "$chapter-%03d.jpg"
+done

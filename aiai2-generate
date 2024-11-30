@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Generates a text file for each image in a chapter
+
+cpt=$1
+
+LLAMA="./llava-v1.5-7b-q4.llamafile -ngl 35"
+
+PROMPT="<image> You are writing a novel, write a paragraph for it based on what you see in this image. Then write another, possibly with some dialogue between the people in the image if there are any. Stick to the style of a novel, don't write like a script, and never mention the scene or that there is an image. It is very important to never say image or talk as if you're describing an image."
+
+for f in ${cpt}-*.jpg; do
+    i=`echo "${f%.*}" | cut -d- -f2`
+    i=$(expr $i + 0)
+    f1=`printf '%03d' $i`
+    f2=`printf '%03d' $(($i-1))`
+    echo "$f1"
+    if (( $i == 1 )); then
+        echo -e "${PROMPT}\n" > prompt
+    else
+        echo -e "${PROMPT}\n$(cat ${cpt}-${f2}.txt)\n" > prompt
+    fi
+    $LLAMA --cli --image "${cpt}-${f1}.jpg" --file prompt --no-display-prompt 2>/dev/null > "${cpt}-${f1}.txt"
+    cat "${cpt}-${f1}.txt"
+done

@@ -1,0 +1,134 @@
+% universal settings
+\documentclass[smalldemyvopaper,11pt,twoside,onecolumn,openright,extrafontsizes]{memoir}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Temporarily added newer Alegreya.sty from CTAN due to package incompatibility. 20161116 (Overleaf Support)
+\usepackage[osf]{Alegreya,AlegreyaSans}
+
+% PACKAGE DEFINITION
+% typographical packages
+\usepackage{microtype} % for micro-typographical adjustments
+\usepackage{setspace} % for line spacing
+\usepackage{lettrine} % for drop caps and awesome chapter beginnings
+\usepackage{titlesec} % for manipulation of chapter titles
+
+% for placeholder text
+\usepackage{lipsum} % to generate Lorem Ipsum
+
+% other
+\usepackage{calc}
+\usepackage{hologo}
+\usepackage[hidelinks]{hyperref}
+%\usepackage{showframe}
+
+% PHYSICAL DOCUMENT SETUP
+% media settings
+\setstocksize{8.5in}{5.675in}
+\settrimmedsize{8.5in}{5.5in}{*}
+\setbinding{0.175in}
+\setlrmarginsandblock{0.611in}{1.222in}{*}
+\setulmarginsandblock{0.722in}{1.545in}{*}
+
+% defining the title and the author
+\title{A.I. A.I. agAIn}
+\author{By an A.I.}
+\newcommand{\press}{Assembled by Barney Livingston}
+
+% custom second title page
+\makeatletter
+\newcommand*\halftitlepage{\begingroup % Misericords, T&H p 153
+  \setlength\drop{0.1\textheight}
+  \begin{center}
+  \vspace*{\drop}
+  \rule{\textwidth}{0in}\par
+  {\Large\textsc\thetitle\par}
+  \rule{\textwidth}{0in}\par
+  \vfill
+  \end{center}
+\endgroup}
+\makeatother
+
+% custom title page
+\thispagestyle{empty}
+\makeatletter
+\newlength\drop
+\newcommand*\titleM{\begingroup % Misericords, T&H p 153
+  \setlength\drop{0.15\textheight}
+  \begin{center}
+  \vspace*{\drop}
+  \rule{\textwidth}{0in}\par
+  {\HUGE\textsc\thetitle\par}
+  \rule{\textwidth}{0in}\par
+  {\Large\textit\theauthor\par}
+  \vfill
+  {\Large\scshape\press}
+  \end{center}
+\endgroup}
+\makeatother
+
+% chapter title manipulation
+% padding with zero
+\renewcommand*\thechapter{\ifnum\value{chapter}<10 0\fi\arabic{chapter}}
+% chapter title display
+\titleformat
+{\chapter}
+[display]
+{\normalfont\scshape\huge}
+{\HUGE\thechapter\centering}
+{0pt}
+{\vspace{18pt}\centering}[\vspace{42pt}]
+
+% typographical settings for the body text
+\setlength{\parskip}{0em}
+\linespread{1.04}
+
+% HEADER AND FOOTER MANIPULATION
+  % for normal pages
+  \nouppercaseheads
+  \headsep = 0.16in
+  \makepagestyle{mystyle} 
+  \setlength{\headwidth}{\dimexpr\textwidth+\marginparsep+\marginparwidth\relax}
+  \makerunningwidth{mystyle}{\headwidth}
+  \makeevenhead{mystyle}{}{\textsf{\scriptsize\scshape\thetitle}}{}
+  \makeoddhead{mystyle}{}{\textsf{\scriptsize\scshape\leftmark}}{}
+  \makeevenfoot{mystyle}{}{\textsf{\scriptsize\thepage}}{}
+  \makeoddfoot{mystyle}{}{\textsf{\scriptsize\thepage}}{}
+  \makeatletter
+  \makepsmarks{mystyle}{%
+  \createmark{chapter}{left}{nonumber}{\@chapapp\ }{.\ }}
+  \makeatother
+  % for pages where chapters begin
+  \makepagestyle{plain}
+  \makerunningwidth{plain}{\headwidth}
+  \makeevenfoot{plain}{}{}{}
+  \makeoddfoot{plain}{}{}{}
+  \pagestyle{mystyle}
+% END HEADER AND FOOTER MANIPULATION
+
+% table of contents customisation
+\renewcommand\contentsname{\normalfont\scshape Contents}
+\renewcommand\cftchapterfont{\normalfont}
+\renewcommand{\cftchapterpagefont}{\normalfont}
+\renewcommand{\printtoctitle}{\centering\Huge}
+
+% layout check and fix
+\checkandfixthelayout
+\fixpdflayout
+
+% BEGIN THE DOCUMENT
+\begin{document}
+\pagestyle{empty}
+% the title page
+\titleM
+\clearpage
+
+% begin front matter
+\frontmatter
+\pagestyle{mystyle}
+% table of contents
+\clearpage
+\tableofcontents*
+
+% begin main matter
+\mainmatter
